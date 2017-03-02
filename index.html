@@ -1,0 +1,111 @@
+<html>
+<head>
+    <title>Minimal</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/monokai-sublime.min.css">
+    <link rel="stylesheet" href="css/quill.snow.css">
+    <link rel="stylesheet" href="css/custom.style.css">
+</head>
+
+<body>
+    <!-- head -->
+    <div class="standalone-container">
+        <div id="snow-container"></div>
+        <div id="typing"></div>
+    </div>
+    <!-- script -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script type="text/javascript" src="js/quill.js"></script>
+    <script type="text/javascript" src="js/extend.quill.js"></script>
+    <script type="text/javascript">
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+            ['blockquote', 'code-block'],
+
+            [{
+                'header': 1
+            }, {
+                'header': 2
+            }], // custom button values
+            [{
+                'list': 'ordered'
+            }, {
+                'list': 'bullet'
+            }],
+            [{
+                'script': 'sub'
+            }, {
+                'script': 'super'
+            }], // superscript/subscript
+            [{
+                'indent': '-1'
+            }, {
+                'indent': '+1'
+            }], // outdent/indent
+            [{
+                'direction': 'rtl'
+            }], // text direction
+
+            [{
+                'size': ['small', false, 'large', 'huge']
+            }], // custom dropdown
+            [{
+                'header': [1, 2, 3, 4, 5, 6, false]
+            }],
+
+            [{
+                'color': []
+            }, {
+                'background': []
+            }], // dropdown with defaults from theme
+            [{
+                'font': []
+            }],
+            [{
+                'align': []
+            }],
+
+            ['clean'], // remove formatting button
+        ];
+
+        var toolbarOptions = {
+            container: [
+                ["bold", "italic", "underline", "blockquote", "code-block"],
+                [{
+                    "header": 1
+                }],
+                [{
+                    "list": "ordered"
+                }, {
+                    "list": "bullet"
+                }],
+                [{
+                    "color": []
+                }, {
+                    "background": []
+                }],
+                ["emoji"]
+            ],
+            handlers: {
+                'emoji': function() {}
+            }
+        }
+
+        //toolbar.addHandler('emoji', fn_emoji_control);
+
+        var quill = new Quill('#snow-container', {
+            modules: {
+                typing: true,
+                custom_attach: true,
+                toolbar: toolbarOptions,
+            },
+            placeholder: 'Compose an epic...',
+            theme: 'snow'
+        });
+    </script>
+
+</body>
+
+</html>
