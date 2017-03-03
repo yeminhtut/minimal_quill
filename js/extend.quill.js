@@ -4,14 +4,14 @@ Quill.register('modules/custom_attach', function(quill, options) {
 
     function checkPalatteExist(){
         var elementExists = document.getElementById("emoji-palette");
-        if (elementExists == null) 
-            showEmojiPalatte();
-        else
-            elementExists.remove();
+        if (elementExists) {
+            return elementExists.remove();
+        }
+        let range = quill.getSelection();
+        showEmojiPalatte(range);
     }
 
-    function showEmojiPalatte() {
-        let range = quill.getSelection();
+    function showEmojiPalatte(range) {
         console.log(range);
         emoji_palatte_container = document.createElement('div');
         toolbar_container = document.querySelector('.ql-toolbar');
@@ -39,6 +39,7 @@ Quill.register('modules/custom_attach', function(quill, options) {
                         console.log(range);
                         if (range) {
                            quill.insertText(range.index,customButton.innerHTML);
+                           checkPalatteExist();
                         }
 	                });
 		        };
@@ -54,8 +55,10 @@ Quill.register('modules/custom_attach', function(quill, options) {
                 console.log("A user action triggered this change.");
                 console.log(quill.getSelection());
            }
-        });
+        });   
+    }
 
+    function closeEmojiPalatte() {
         
     }
 
