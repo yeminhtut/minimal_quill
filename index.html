@@ -7,34 +7,24 @@
     <link rel="stylesheet" href="css/quill.snow.css">
     <link rel="stylesheet" href="css/custom.style.css">
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/emoji.css" type="text/css" />
 </head>
 <body>
     <div class="standalone-container">
-    	<i class="em em-100"></i>
         <div id="snow-container"></div>
         <div id="typing"></div>
-        <div id="plate">&#x1f607; &#x1f602;</div>
+        <div id="plate"></div>
     </div>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 <script type="text/javascript" src="js/sampleEmoji.js"></script>
 <script src="https://cdn.jsdelivr.net/emojione/2.2.7/lib/js/emojione.min.js"></script>
-<script src="bower_components/emojis-unicode/dist/emojis-unicode.js"></script>
 <script type="text/javascript" src="js/quill.js"></script>
 <script type="text/javascript" src="js/extend.quill.js"></script>
+<script type="text/javascript" src="js/emoji.js"></script>
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {  
-        var emojis = require('emojis-unicode');
-        console.log(emojis);
-        var plate = document.querySelector('#plate');
-        emojiOne.map(function(emoji) {
-          let span = document.createElement('span');
-          let t = document.createTextNode("&#x1f602;");
-          span.appendChild(t);
-          span.classList.add('bem');
-          span.classList.add('bem-'+emoji.name);
-          plate.appendChild(span);
-        });
+    document.addEventListener('DOMContentLoaded', function() { 
+        
     });
     var toolbarOptions = {
             container: [

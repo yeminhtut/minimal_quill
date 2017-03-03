@@ -7,37 +7,75 @@ Quill.register('modules/custom_attach', function(quill, options) {
         quill.container.parentNode.insertBefore(emoji_palatte_container, quill.container);
         emoji_palatte_container.classList.add('emoji-palette');
         
-        var emojiCollection = [
-			{name: 'laugh', icon: '😀'}, 
-			{name: 'smile', icon: '🙂'}, 
-			{name: 'cry', icon: '😭'}
-        ];
+        var emojiCollection = emojiOne;
 
         showEmojiList(emojiCollection);
-
-        emojiCollection.map(function(emoji) {
-            //emojiHandler(emoji.name, emoji.icon);
-        });
 
         function showEmojiList(emojiCollection){
             let lastRange = quill.getSelection();
             console.log(lastRange);
         	emojiCollection.map(function(emoji) {
-	            let span = document.createElement('span');
-	            span.classList.add('bem');
-	        	span.classList.add('bem-'+emoji.name);
-	        	emoji_palatte_container.appendChild(span);
+                let span = document.createElement('span');
+                let t = document.createTextNode(emoji.shortname);
+                span.appendChild(t);
+                span.classList.add('bem');
+                span.classList.add('bem-'+emoji.name);
+                let output = convert(emoji.shortname);
+                span.innerHTML = output;
+                emoji_palatte_container.appendChild(span);
                 
 	        	var customButton = document.querySelector('.bem-' + emoji.name);
 		        if (customButton) {
-		               customButton.addEventListener('click', function() {
-		                   var range = lastRange;
-		                   if (range) {
-		                       quill.insertText(range.index, emoji.icon);
-		                   }
-		               });
-		           };
+		                customButton.addEventListener('click', function() {
+                            var range = lastRange;
+                            if (range) {
+                               quill.insertText(range.index,customButton.innerHTML);
+                            }
+                            lastRange.index = lastRange.index + 1;
+                            console.log(lastRange);
+		                });
+		        };
 	        });
+        }
+
+        function convert(input){
+            var emoji = new EmojiConvertor();
+
+            // replaces \u{1F604} with platform appropriate content
+            var output1 = emoji.replace_unified(input);
+
+            // replaces :smile: with platform appropriate content
+            var output2 = emoji.replace_colons(input);
+
+            // force text output mode
+            emoji.text_mode = true;
+
+            // show the short-name as a `title` attribute for css/img emoji
+            emoji.include_title = true;
+
+            // change the path to your emoji images (requires trailing slash)
+            // you can grab the images from the emoji-data link here:
+            // https://github.com/iamcal/js-emoji/tree/master/build
+            emoji.img_sets.apple.path = 'http://my-cdn.com/emoji-apple-64/';
+            emoji.img_sets.apple.sheet = 'http://my-cdn.com/emoji-apple-sheet-64.png';
+
+            // Configure this library to use the sheets defined in `img_sets` (see above)
+            emoji.use_sheet = true;
+
+            // add some aliases of your own - you can override builtins too
+            emoji.addAliases({
+              'doge' : '1f415',
+              'cat'  : '1f346'
+            });
+
+            // remove your custom aliases - this will reset builtins
+            emoji.removeAliases([
+              'doge',
+              'cat',
+            ]);
+
+            return output2;
+
         }
     }
 });
