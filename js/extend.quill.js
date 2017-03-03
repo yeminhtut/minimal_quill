@@ -1,19 +1,27 @@
 Quill.register('modules/custom_attach', function(quill, options) {
     var toolbar = quill.getModule('toolbar');
-    toolbar.addHandler('emoji', showEmojiPalatte);
+    toolbar.addHandler('emoji', checkPalatteExist);
+
+    function checkPalatteExist(){
+        var elementExists = document.getElementById("emoji-palette");
+        if (elementExists == null) 
+            showEmojiPalatte();
+        else
+            elementExists.remove();
+    }
 
     function showEmojiPalatte() {
+        let range = quill.getSelection();
+        console.log(range);
         emoji_palatte_container = document.createElement('div');
-        quill.container.parentNode.insertBefore(emoji_palatte_container, quill.container);
-        emoji_palatte_container.classList.add('emoji-palette');
-        
-        var emojiCollection = emojiOne;
+        toolbar_container = document.querySelector('.ql-toolbar');
+        toolbar_container.appendChild(emoji_palatte_container);
+        emoji_palatte_container.id = 'emoji-palette'; 
 
+        var emojiCollection = emojiOne;
         showEmojiList(emojiCollection);
 
         function showEmojiList(emojiCollection){
-            let lastRange = quill.getSelection();
-            console.log(lastRange);
         	emojiCollection.map(function(emoji) {
                 let span = document.createElement('span');
                 let t = document.createTextNode(emoji.shortname);
@@ -26,19 +34,32 @@ Quill.register('modules/custom_attach', function(quill, options) {
                 
 	        	var customButton = document.querySelector('.bem-' + emoji.name);
 		        if (customButton) {
-		                customButton.addEventListener('click', function() {
-                            var range = lastRange;
-                            if (range) {
-                               quill.insertText(range.index,customButton.innerHTML);
-                            }
-                            lastRange.index = lastRange.index + 1;
-                            console.log(lastRange);
-		                });
+	                customButton.addEventListener('click', function() {
+                        console.log('click');
+                        console.log(range);
+                        if (range) {
+                           quill.insertText(range.index,customButton.innerHTML);
+                        }
+	                });
 		        };
 	        });
         }
 
-        function convert(input){
+        quill.once('text-change', function(delta, oldDelta, source) {
+           if (source == 'api') {
+                console.log("An API call triggered this change.");
+                console.log(delta);
+                console.log(quill.getSelection());
+           } else if (source == 'user') {
+                console.log("A user action triggered this change.");
+                console.log(quill.getSelection());
+           }
+        });
+
+        
+    }
+
+    function convert(input){
             var emoji = new EmojiConvertor();
 
             // replaces \u{1F604} with platform appropriate content
@@ -77,7 +98,6 @@ Quill.register('modules/custom_attach', function(quill, options) {
             return output2;
 
         }
-    }
 });
 
 Quill.register('modules/typing', function(quill, options) {
