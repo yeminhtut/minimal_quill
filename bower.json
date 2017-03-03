@@ -1,0 +1,20 @@
+{
+  "name": "minimal",
+  "homepage": "https://github.com/yeminhtut/minimal_quill",
+  "authors": [
+    "Ye Min <yehtut.it@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "emojis-unicode": "^1.0.1"
+  }
+}

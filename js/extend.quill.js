@@ -6,6 +6,7 @@ Quill.register('modules/custom_attach', function(quill, options) {
         emoji_palatte_container = document.createElement('div');
         quill.container.parentNode.insertBefore(emoji_palatte_container, quill.container);
         emoji_palatte_container.classList.add('emoji-palette');
+        
         var emojiCollection = [
 			{name: 'laugh', icon: '😀'}, 
 			{name: 'smile', icon: '🙂'}, 
@@ -19,38 +20,25 @@ Quill.register('modules/custom_attach', function(quill, options) {
         });
 
         function showEmojiList(emojiCollection){
+            let lastRange = quill.getSelection();
+            console.log(lastRange);
         	emojiCollection.map(function(emoji) {
 	            let span = document.createElement('span');
 	            span.classList.add('bem');
 	        	span.classList.add('bem-'+emoji.name);
 	        	emoji_palatte_container.appendChild(span);
+                
 	        	var customButton = document.querySelector('.bem-' + emoji.name);
 		        if (customButton) {
 		               customButton.addEventListener('click', function() {
-		                   var range = quill.savedRange;
-		                   console.log(range);
+		                   var range = lastRange;
 		                   if (range) {
-		                       quill.insertText(range.index, icon);
+		                       quill.insertText(range.index, emoji.icon);
 		                   }
 		               });
 		           };
 	        });
-
-        	console.log(quill.getSelection());	
         }
-
-        // function emojiHandler(name, icon) {
-        //     var customButton = document.querySelector('.bem-' + name);
-        //     console.log(customButton);
-        //     if (customButton) {
-        //         customButton.addEventListener('click', function() {
-        //             var range = quill.getSelection();
-        //             if (range) {
-        //                 quill.insertText(range.index, icon);
-        //             }
-        //         });
-        //     };
-        // }
     }
 });
 

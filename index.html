@@ -6,104 +6,57 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/monokai-sublime.min.css">
     <link rel="stylesheet" href="css/quill.snow.css">
     <link rel="stylesheet" href="css/custom.style.css">
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
 </head>
-
 <body>
-    <!-- head -->
     <div class="standalone-container">
+    	<i class="em em-100"></i>
         <div id="snow-container"></div>
         <div id="typing"></div>
+        <div id="plate">&#x1f607; &#x1f602;</div>
     </div>
-    <!-- script -->
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
-    <script type="text/javascript" src="js/quill.js"></script>
-    <script type="text/javascript" src="js/extend.quill.js"></script>
-    <script type="text/javascript">
-        var toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-            ['blockquote', 'code-block'],
-
-            [{
-                'header': 1
-            }, {
-                'header': 2
-            }], // custom button values
-            [{
-                'list': 'ordered'
-            }, {
-                'list': 'bullet'
-            }],
-            [{
-                'script': 'sub'
-            }, {
-                'script': 'super'
-            }], // superscript/subscript
-            [{
-                'indent': '-1'
-            }, {
-                'indent': '+1'
-            }], // outdent/indent
-            [{
-                'direction': 'rtl'
-            }], // text direction
-
-            [{
-                'size': ['small', false, 'large', 'huge']
-            }], // custom dropdown
-            [{
-                'header': [1, 2, 3, 4, 5, 6, false]
-            }],
-
-            [{
-                'color': []
-            }, {
-                'background': []
-            }], // dropdown with defaults from theme
-            [{
-                'font': []
-            }],
-            [{
-                'align': []
-            }],
-
-            ['clean'], // remove formatting button
-        ];
-
-        var toolbarOptions = {
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+<script type="text/javascript" src="js/sampleEmoji.js"></script>
+<script src="https://cdn.jsdelivr.net/emojione/2.2.7/lib/js/emojione.min.js"></script>
+<script src="bower_components/emojis-unicode/dist/emojis-unicode.js"></script>
+<script type="text/javascript" src="js/quill.js"></script>
+<script type="text/javascript" src="js/extend.quill.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {  
+        var emojis = require('emojis-unicode');
+        console.log(emojis);
+        var plate = document.querySelector('#plate');
+        emojiOne.map(function(emoji) {
+          let span = document.createElement('span');
+          let t = document.createTextNode("&#x1f602;");
+          span.appendChild(t);
+          span.classList.add('bem');
+          span.classList.add('bem-'+emoji.name);
+          plate.appendChild(span);
+        });
+    });
+    var toolbarOptions = {
             container: [
                 ["bold", "italic", "underline", "blockquote", "code-block"],
-                [{
-                    "header": 1
-                }],
-                [{
-                    "list": "ordered"
-                }, {
-                    "list": "bullet"
-                }],
-                [{
-                    "color": []
-                }, {
-                    "background": []
-                }],
+                [{"header": 1}],
+                [{"list": "ordered"}, {"list": "bullet"}],
+                [{"color": []}, {"background": []}],
                 ["emoji"]
             ],
             handlers: {
                 'emoji': function() {}
             }
         }
-
-        //toolbar.addHandler('emoji', fn_emoji_control);
-
-        var quill = new Quill('#snow-container', {
-            modules: {
-                typing: true,
-                custom_attach: true,
-                toolbar: toolbarOptions,
-            },
-            placeholder: 'Compose an epic...',
-            theme: 'snow'
-        });
+    var quill = new Quill('#snow-container', {
+      modules: {
+          typing: true,
+          custom_attach: true,
+          toolbar: toolbarOptions,
+      },
+      placeholder: 'Compose an epic...',
+      theme: 'snow'
+    });
     </script>
 
 </body>
