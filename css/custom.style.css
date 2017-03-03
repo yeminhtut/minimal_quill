@@ -15,9 +15,7 @@
 .ql-emoji:after {
     content: "😊";
 }
-.ql-toolbar{
-  position: relative;
-}
+
 .bem{
 	margin-right:4px;
 }
@@ -32,11 +30,12 @@
 }*/
 
 #emoji-palette{
-  position: absolute;
-  right: 260px;
-  padding: 10px;
-  z-index: 999;
-  background: #efefef;
+    position: absolute;
+    padding: 4px 8px;
+    z-index: 999;
+    background: #f3f6fa;
+    border: solid 1px #dce6f0;
+    max-width: 200px;
 }
 
 

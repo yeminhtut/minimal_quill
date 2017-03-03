@@ -11,14 +11,19 @@ Quill.register('modules/custom_attach', function(quill, options) {
     }
 
     function showEmojiPalatte() {
+        var bodyRect = document.body.getBoundingClientRect();
+        toolbar_emoji_element = document.querySelector('.ql-emoji');
+        rect = toolbar_emoji_element.getBoundingClientRect();
+        
         let range = quill.getSelection();
         console.log(range);
         emoji_palatte_container = document.createElement('div');
         toolbar_container = document.querySelector('.ql-toolbar');
         toolbar_container.appendChild(emoji_palatte_container);
         emoji_palatte_container.id = 'emoji-palette'; 
+        emoji_palatte_container.style.right= rect.right - 100;
 
-        var emojiCollection = emojiOne;
+        emojiCollection = emojiOne;
         showEmojiList(emojiCollection);
 
         function showEmojiList(emojiCollection){
@@ -29,14 +34,12 @@ Quill.register('modules/custom_attach', function(quill, options) {
                 span.classList.add('bem');
                 span.classList.add('bem-'+emoji.name);
                 let output = convert(emoji.shortname);
-                span.innerHTML = output;
+                span.innerHTML = ' '+output+'';
                 emoji_palatte_container.appendChild(span);
                 
 	        	var customButton = document.querySelector('.bem-' + emoji.name);
 		        if (customButton) {
 	                customButton.addEventListener('click', function() {
-                        console.log('click');
-                        console.log(range);
                         if (range) {
                            quill.insertText(range.index,customButton.innerHTML);
                         }
