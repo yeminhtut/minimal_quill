@@ -35,10 +35,10 @@ Quill.register('modules/custom_attach', function(quill, options) {
 	        	var customButton = document.querySelector('.bem-' + emoji.name);
 		        if (customButton) {
 	                customButton.addEventListener('click', function() {
-                        console.log('click');
                         console.log(range);
                         if (range) {
-                           quill.insertText(range.index,customButton.innerHTML);
+                           quill.insertText(range.index, customButton.innerHTML);
+                           quill.setSelection(range.index+1, 0);
                            checkPalatteExist();
                         }
 	                });
