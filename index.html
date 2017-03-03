@@ -13,7 +13,6 @@
     <div class="standalone-container">
         <div id="snow-container"></div>
         <div id="typing"></div>
-        <div id="plate"></div>
     </div>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
@@ -39,13 +38,13 @@
             }
         }
     var quill = new Quill('#snow-container', {
-      modules: {
+        modules: {
           typing: true,
           custom_attach: true,
           toolbar: toolbarOptions,
-      },
-      placeholder: 'Compose an epic...',
-      theme: 'snow'
+        },
+        placeholder: 'Compose an epic...',
+        theme: 'snow'
     });
 
     </script>

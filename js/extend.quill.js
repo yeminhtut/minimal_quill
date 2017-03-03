@@ -34,7 +34,7 @@ Quill.register('modules/custom_attach', function(quill, options) {
                 span.classList.add('bem');
                 span.classList.add('bem-'+emoji.name);
                 let output = convert(emoji.shortname);
-                span.innerHTML = ' '+output+'';
+                span.innerHTML = output+' ';
                 emoji_palatte_container.appendChild(span);
                 
 	        	var customButton = document.querySelector('.bem-' + emoji.name);
@@ -42,7 +42,11 @@ Quill.register('modules/custom_attach', function(quill, options) {
 	                customButton.addEventListener('click', function() {
                         if (range) {
                            quill.insertText(range.index, customButton.innerHTML);
-                           quill.setSelection(range.index+2, 0);
+                           console.log(range);
+                           quill.setSelection(range.index+4, 0);
+                           range.index = range.index+4;
+                           console.log('current cursor point is');
+                           console.log(quill.getSelection());
                            checkPalatteExist();
                         }
 	                });
@@ -50,16 +54,16 @@ Quill.register('modules/custom_attach', function(quill, options) {
 	        });
         }
 
-        quill.once('text-change', function(delta, oldDelta, source) {
-           if (source == 'api') {
-                console.log("An API call triggered this change.");
-                console.log(delta);
-                console.log(quill.getSelection());
-           } else if (source == 'user') {
-                console.log("A user action triggered this change.");
-                console.log(quill.getSelection());
-           }
-        });   
+        // quill.once('text-change', function(delta, oldDelta, source) {
+        //    if (source == 'api') {
+        //         console.log("An API call triggered this change.");
+        //         console.log(delta);
+        //         console.log(quill.getSelection());
+        //    } else if (source == 'user') {
+        //         console.log("A user action triggered this change.");
+        //         console.log(quill.getSelection());
+        //    }
+        // });   
     }
 
     function closeEmojiPalatte() {
