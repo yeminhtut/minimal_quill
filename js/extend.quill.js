@@ -38,7 +38,7 @@ Quill.register('modules/custom_attach', function(quill, options) {
                         console.log(range);
                         if (range) {
                            quill.insertText(range.index, customButton.innerHTML);
-                           quill.setSelection(range.index+1, 0);
+                           quill.setSelection(range.index+2, 0);
                            checkPalatteExist();
                         }
 	                });
